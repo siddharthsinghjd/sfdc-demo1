@@ -15,8 +15,8 @@ app.set('port', process.env.PORT || 5000);
 */
 pg.defaults.ssl = true;
 
-//var dbString = process.env.DATABASE_URL;
-var dbString = 'postgres://uhwerlkmaxpvuu:8028d54b17f3b1e9219748ade2b3fbd052832452f2948c6687467c8bcf119322@ec2-35-174-88-65.compute-1.amazonaws.com:5432/d26nvbvsr8gkrp';
+var dbString = process.env.DATABASE_URL;
+//var dbString = 'postgres://uhwerlkmaxpvuu:8028d54b17f3b1e9219748ade2b3fbd052832452f2948c6687467c8bcf119322@ec2-35-174-88-65.compute-1.amazonaws.com:5432/d26nvbvsr8gkrp';
 
 var sharedPgClient;
 
