@@ -1,6 +1,6 @@
 {
   "name": "Phone Change",
-  "description": "Heroku Connect Sample App - Phone Change",
+  "description": "SFDC-Demo1",
   "repository": "https://github.com/sfdc-demo1",
   "success_url": "/setup.html",
   "env": {
