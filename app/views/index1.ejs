@@ -1,20 +1,122 @@
-<!DOCTYPE html> 
-<html lang="en"> 
-  <head> 
-    <title>Fetch API</title> 
-  </head> 
-  <body> 
-    <div> 
-      <h1>Fetch API GET REQUEST</h1> 
-      <h3>Fetching Users</h3> 
-  
-      <!-- Table to display fetched user data -->
-      <table id="users"></table> 
-    </div> 
-       
-    <!-- Link JavaScript file -->
-    <script type="text/javascript">
-        var proxyurl = "https://cors-anywhere.herokuapp.com/";
+<!DOCTYPE html>
+<html>
+   <body>
+      
+      <div class="headerContainer">
+         <div style="background-color:white;margin: 1rem;padding: 0.5rem;width:10%" id="heroku">
+            <div style="float:left;width: 24%;">
+               <svg class="slds-align_absolute-center" width="27" style="fill: #9E7CC1;padding-top: 4px;margin-left: 0px;" height="30" viewBox="0 0 27 30" xmlns="http://www.w3.org/2000/svg">
+                  <title>heroku-logo</title>
+                  <path d="M3 0C1.13 0 0 1.11 0 2.903v24.194C0 28.883 1.13 30 3 30h21c1.863 0 3-1.11 3-2.903V2.903C26.994 1.11 25.863 0 24 0H3zm21.042 2c.508.006.958.448.958.929V27.07c0 .487-.45.929-.958.929H2.958C2.45 28 2 27.558 2 27.071V2.93c0-.488.45-.93.958-.93h21.084zM20 25h-2.781v-8.506c0-.774-.237-1.048-.468-1.208-1.396-.959-5.414-.042-7.834.916L7 17.012 7.006 5h2.816v7.917a20.99 20.99 0 0 1 1.882-.482c2.988-.643 5.184-.47 6.616.505.787.536 1.68 1.59 1.68 3.554V25zm-6-15h3.293A16.109 16.109 0 0 0 20 5h-3.287c-.49 1.188-1.385 3.188-2.713 5zM7 25v-7l3 3.5L7 25z" fill="%239E7CC1" fill-rule="evenodd"/>
+               </svg>
+            </div>
+            <div style="float:right;width: 76%;">
+               <span class="herokuPreTextLogo">Hosted on</span>
+               <br/>
+               <strong class="herokuTextLogo"> H E R O K U</strong>
+            </div>
+         </div>
+         <div class="slds-align_absolute-center" style="margin-left: 25%;">
+            <span class="header">
+            <img style="padding-right: 1rem;" height="100%" width="65px" src="https://lh3.googleusercontent.com/KPYpOWP0sUMHto2MENvvPErFOxk-ZRObA8Nzd4wnaDBRQGtGSjiAqHpXY0ASoLPMMj8"/>
+            Analytics Studio
+            </span>
+         </div>
+      </div>
+      <div style="margin-top:2rem" class="slds-align_absolute-center">
+		 
+		 <!-- Use Lightning Out to create the Dashboard app and component -->
+         <button onclick="initializeApp();" class="slds-button">Run Dashboard</button>
+		 
+      </div>
+	  
+      <div id="spinner" style="display:none" class="spinner-border slds-align_absolute-center"></div>
+	  
+	  <!-- Dashboard Embed Container -->
+      <div id="dashboard"></div>
+	  
+   </body>
+   <head>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+      <style>
+         .herokuPreTextLogo{
+			 font-size: 15px;
+			 color: #9E7CC1;
+			 font-family: salesforce-sans,"Helvetica Neue",helvetica,arial,sans-serif;
+         }
+         .herokuTextLogo{
+			 font-size: 15px;
+			 font-weight: 800;	
+			 color: #9E7CC1;
+			 font-family: salesforce-sans,"Helvetica Neue",helvetica,arial,sans-serif;
+         }
+         .heroku{
+			 background: url('data:image/svg+xml;utf8,
+			 <svg width="27" height="30" viewBox="0 0 27 30" xmlns="http://www.w3.org/2000/svg">
+				<title>heroku-logo</title>
+				<path d="M3 0C1.13 0 0 1.11 0 2.903v24.194C0 28.883 1.13 30 3 30h21c1.863 0 3-1.11 3-2.903V2.903C26.994 1.11 25.863 0 24 0H3zm21.042 2c.508.006.958.448.958.929V27.07c0 .487-.45.929-.958.929H2.958C2.45 28 2 27.558 2 27.071V2.93c0-.488.45-.93.958-.93h21.084zM20 25h-2.781v-8.506c0-.774-.237-1.048-.468-1.208-1.396-.959-5.414-.042-7.834.916L7 17.012 7.006 5h2.816v7.917a20.99 20.99 0 0 1 1.882-.482c2.988-.643 5.184-.47 6.616.505.787.536 1.68 1.59 1.68 3.554V25zm-6-15h3.293A16.109 16.109 0 0 0 20 5h-3.287c-.49 1.188-1.385 3.188-2.713 5zM7 25v-7l3 3.5L7 25z" fill="%239E7CC1" fill-rule="evenodd"/>
+			 </svg>
+			 ');
+			 background-repeat: no-repeat;
+			 background-size: contain;
+			 width: 40px;
+			 height: 35px;
+			 display: inline-block;
+			 position: relative;
+			 opacity: 1;
+         }
+         .headerContainer{
+			 width: 100%;
+			 top: 0;
+			 left: 0;
+			 z-index: 100;
+			 position: relative;
+			 display: flex;
+			 background: #16325c;
+			 color: #fff;
+         }
+         .header{
+			 padding:1rem;
+			 font-family: 'Salesforce Sans',Arial,sans-serif;
+			 line-height: 1.5;
+			 display: flex;
+			 align-content: center;
+			 align-items: stretch;
+			 white-space: nowrap;
+			 position: relative;
+			 font-size: 35px;
+			 transition: background-color .25s cubic-bezier(0.39, 0.575, 0.565, 1);
+         }
+         .slds-align_absolute-center {
+			 display: flex;
+			 justify-content: center;
+			 align-content: center;
+			 align-items: center;
+			 margin: auto;
+         }
+         .slds-button{
+			 padding: 1rem;
+			 font-family: 'Salesforce Sans',Arial,sans-serif;
+			 font-size: 30px;
+			 text-align: center;
+			 vertical-align: middle;
+			 border: 1px solid #dddbda;
+			 transition: border .15s linear;
+			 background-color: #0070d2;
+			 border-color: #0070d2;
+			 color: #fff;
+			 position: relative;
+			 display: inline-block;
+			 background-clip: border-box;
+			 border-radius: .25rem;
+         }
+      </style>
+	  
+      <script src="https://covid360india--dev1.lightning.force.com/lightning/lightning.out.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script>
+         var token;
+		      var proxyurl = "https://cors-anywhere.herokuapp.com/";
         var apiUrl = 'https://covid360india--dev1.my.salesforce.com/services/oauth2/token?grant_type=password&client_id=3MVG9pcaEGrGRoTLxT_2YHq3bkWV5kJw9IR5nZZkQrFkGbs3AvgHs_6W5Grvcfc1cc_Y4KLPh.w.ILqjFccCn&client_secret=CAF6E6798C698E2E7F7B69896821F0118EB2B05054E9474538F4BD4062FA05A9&&username= integration_covid360india@deloitte.com&&password=Deloitte@2020';
         console.log('**********************');
         fetch(proxyurl + apiUrl,{
@@ -28,9 +130,35 @@
         }).then(data => {
           // Work with JSON data here
           console.log(data);
+          console.log('************************');
+          console.log(data.access_token);
+          token = data.access_token;
         }).catch(err => {
           // Do something for an error here
         });
-    </script>
-  </body> 
-</html> 
+         
+         function initializeApp(){
+			document.getElementById("spinner").style.display = "block";
+         
+			 var url='https://covid360india--dev1.lightning.force.com';
+			 var appName='c:DemoDashapp';
+			 $Lightning.use(appName, 
+						function() {
+							document.getElementById("spinner").style.display = "none";
+							createComponent();
+						}, url, token);
+         
+         }
+         
+         function createComponent(){
+         	$Lightning.createComponent(
+         		"c:Demo", 
+         		{
+         			accessToken: token
+         		}, 
+         		"dashboard"
+         	); 
+         }
+      </script>
+   </head>
+</html>
