@@ -43,6 +43,10 @@ app.get("/",function defaultRoute(req, res){
     });
 });
 
+app.get("/testAPI",function defaultRoute(req, res){
+    res.render("index1.ejs");
+});
+
 app.get("/accounts",function defaultRoute(req, res){
     var query = "SELECT * FROM salesforce.account";
     var result = [];
