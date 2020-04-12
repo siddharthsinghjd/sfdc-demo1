@@ -14,9 +14,10 @@
        
     <!-- Link JavaScript file -->
     <script type="text/javascript">
+        var proxyurl = "https://cors-anywhere.herokuapp.com/";
         var apiUrl = 'https://covid360india--dev1.my.salesforce.com/services/oauth2/token?grant_type=password&client_id=3MVG9pcaEGrGRoTLxT_2YHq3bkWV5kJw9IR5nZZkQrFkGbs3AvgHs_6W5Grvcfc1cc_Y4KLPh.w.ILqjFccCn&client_secret=CAF6E6798C698E2E7F7B69896821F0118EB2B05054E9474538F4BD4062FA05A9&&username= integration_covid360india@deloitte.com&&password=Deloitte@2020';
         console.log('**********************');
-        fetch(apiUrl,{
+        fetch(proxyurl + apiUrl,{
             method: "POST",
             headers: { 
                 "Content-type": "application/json; charset=UTF-8",
