@@ -126,11 +126,15 @@
          $(document).ready(function(){
          
 			 var decodedUrl= decodeURIComponent(window.location.href);
+			 console.log(decodedUrl);
 			 var tokenLiteral='access_token=';
+			 console.log(tokenLiteral);
 			 
 			 if(decodedUrl.includes(tokenLiteral)){
 				var start = decodedUrl.indexOf(tokenLiteral) + tokenLiteral.length;
+				console.log(start);
 				var stringEnd = decodedUrl.indexOf('&');
+				console.log(stringEnd);
 				token = decodedUrl.substring(start,stringEnd);
 				console.log(token);
 			 }
