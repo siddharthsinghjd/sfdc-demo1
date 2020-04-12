@@ -1,124 +1,169 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <title>Heroku App</title>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <!-- Bootstrap -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <style>
-        body {
-            padding-top: 60px;
-        }
-        .button {
-        display: inline-block;
-        padding: 15px 25px;
-        font-size: 24px;
-        cursor: pointer;
-        text-align: center;
-        text-decoration: none;
-        outline: none;
-        color: #fff;
-        background-color: #4CAF50;
-        border: none;
-        border-radius: 15px;
-        box-shadow: 0 9px #999;
-        }
-
-        .button:hover {background-color: #3e8e41}
-
-        .button:active {
-        background-color: #3e8e41;
-        box-shadow: 0 5px #666;
-        transform: translateY(4px);
-        }
-    </style>
-    <script>
-        $(function() {
-            $("#phoneChangerForm").submit(function(event) {
-                event.preventDefault();
-
-                var errorMessage = $("#errorMessage");
-                var error = $("#error");
-                error.hide();
-
-                $("#message").hide();
-
-                var firstName = $("#firstName").val();
-                var lastName = $("#lastName").val();
-                var email = $("#email").val();
-                var phone = $("#phone").val();
-
-                if (firstName.length == 0 || lastName.length == 0 || email.length == 0 || phone.length == 0) {
-                    errorMessage.text("All of the fields are required.");
-                    error.show();
-                }
-                else {
-                    $.ajax({
-                        url: event.target.action,
-                        method: event.target.method,
-                        data: JSON.stringify({
-                            firstName: firstName,
-                            lastName: lastName,
-                            email: email,
-                            phone: phone
-                        }),
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        success: function(data) {
-                            $("#firstName").val("");
-                            $("#lastName").val("");
-                            $("#email").val("");
-                            $("#phone").val("");
-                            $("#messageMessage").text("Record updated!");
-                            $("#message").show();
-                        },
-                        error: function(err) {
-                            errorMessage.text(err.responseJSON.error);
-                            error.show();
-                        }
-                    })
-                }
-            });
-        });
-
-    </script>
-</head>
-<body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Heroku Trial Application</a>
-          </div>
-          <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="/">Home</a></li>
-              <li class="active"><a href="accounts">Accounts</a></li>
-              <li class="active"><a href="contacts">Contacts</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </nav>
-
-    <div class="w3-container">
-            <br/>
-            <p><b><button class="w3-button w3-block w3-teal" onclick="window.location.href='/accounts'">Account Details</button></b></p><br/>
-            <p><b><button class="w3-button w3-block w3-black" onclick="window.location.href='/createAccount'">Create Account</button></b></p><br/>
-            <p><b><button class="w3-button w3-block w3-teal" onclick="window.location.href='/contacts'">Contact Details</button></b></p><br/>
-            <p><b><button class="w3-button w3-block w3-black" onclick="window.location.href='/createContact'">Create Contact</button></b></p><br/>
-    </div>
-</body>
+   <body>
+      
+      <div class="headerContainer">
+         <div style="background-color:white;margin: 1rem;padding: 0.5rem;width:10%" id="heroku">
+            <div style="float:left;width: 24%;">
+               <svg class="slds-align_absolute-center" width="27" style="fill: #9E7CC1;padding-top: 4px;margin-left: 0px;" height="30" viewBox="0 0 27 30" xmlns="http://www.w3.org/2000/svg">
+                  <title>heroku-logo</title>
+                  <path d="M3 0C1.13 0 0 1.11 0 2.903v24.194C0 28.883 1.13 30 3 30h21c1.863 0 3-1.11 3-2.903V2.903C26.994 1.11 25.863 0 24 0H3zm21.042 2c.508.006.958.448.958.929V27.07c0 .487-.45.929-.958.929H2.958C2.45 28 2 27.558 2 27.071V2.93c0-.488.45-.93.958-.93h21.084zM20 25h-2.781v-8.506c0-.774-.237-1.048-.468-1.208-1.396-.959-5.414-.042-7.834.916L7 17.012 7.006 5h2.816v7.917a20.99 20.99 0 0 1 1.882-.482c2.988-.643 5.184-.47 6.616.505.787.536 1.68 1.59 1.68 3.554V25zm-6-15h3.293A16.109 16.109 0 0 0 20 5h-3.287c-.49 1.188-1.385 3.188-2.713 5zM7 25v-7l3 3.5L7 25z" fill="%239E7CC1" fill-rule="evenodd"/>
+               </svg>
+            </div>
+            <div style="float:right;width: 76%;">
+               <span class="herokuPreTextLogo">Hosted on</span>
+               <br/>
+               <strong class="herokuTextLogo"> H E R O K U</strong>
+            </div>
+         </div>
+         <div class="slds-align_absolute-center" style="margin-left: 25%;">
+            <span class="header">
+            <img style="padding-right: 1rem;" height="100%" width="65px" src="https://lh3.googleusercontent.com/KPYpOWP0sUMHto2MENvvPErFOxk-ZRObA8Nzd4wnaDBRQGtGSjiAqHpXY0ASoLPMMj8"/>
+            Analytics Studio
+            </span>
+         </div>
+      </div>
+      <div style="margin-top:2rem" class="slds-align_absolute-center">
+		 
+		 <!-- Use Lightning Out to create the Dashboard app and component -->
+         <button onclick="initializeApp();" class="slds-button">Run Dashboard</button>
+		 
+      </div>
+	  
+      <div id="spinner" style="display:none" class="spinner-border slds-align_absolute-center"></div>
+	  
+	  <!-- Dashboard Embed Container -->
+      <div id="dashboard"></div>
+	  
+   </body>
+   <head>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+      <style>
+         .herokuPreTextLogo{
+			 font-size: 15px;
+			 color: #9E7CC1;
+			 font-family: salesforce-sans,"Helvetica Neue",helvetica,arial,sans-serif;
+         }
+         .herokuTextLogo{
+			 font-size: 15px;
+			 font-weight: 800;	
+			 color: #9E7CC1;
+			 font-family: salesforce-sans,"Helvetica Neue",helvetica,arial,sans-serif;
+         }
+         .heroku{
+			 background: url('data:image/svg+xml;utf8,
+			 <svg width="27" height="30" viewBox="0 0 27 30" xmlns="http://www.w3.org/2000/svg">
+				<title>heroku-logo</title>
+				<path d="M3 0C1.13 0 0 1.11 0 2.903v24.194C0 28.883 1.13 30 3 30h21c1.863 0 3-1.11 3-2.903V2.903C26.994 1.11 25.863 0 24 0H3zm21.042 2c.508.006.958.448.958.929V27.07c0 .487-.45.929-.958.929H2.958C2.45 28 2 27.558 2 27.071V2.93c0-.488.45-.93.958-.93h21.084zM20 25h-2.781v-8.506c0-.774-.237-1.048-.468-1.208-1.396-.959-5.414-.042-7.834.916L7 17.012 7.006 5h2.816v7.917a20.99 20.99 0 0 1 1.882-.482c2.988-.643 5.184-.47 6.616.505.787.536 1.68 1.59 1.68 3.554V25zm-6-15h3.293A16.109 16.109 0 0 0 20 5h-3.287c-.49 1.188-1.385 3.188-2.713 5zM7 25v-7l3 3.5L7 25z" fill="%239E7CC1" fill-rule="evenodd"/>
+			 </svg>
+			 ');
+			 background-repeat: no-repeat;
+			 background-size: contain;
+			 width: 40px;
+			 height: 35px;
+			 display: inline-block;
+			 position: relative;
+			 opacity: 1;
+         }
+         .headerContainer{
+			 width: 100%;
+			 top: 0;
+			 left: 0;
+			 z-index: 100;
+			 position: relative;
+			 display: flex;
+			 background: #16325c;
+			 color: #fff;
+         }
+         .header{
+			 padding:1rem;
+			 font-family: 'Salesforce Sans',Arial,sans-serif;
+			 line-height: 1.5;
+			 display: flex;
+			 align-content: center;
+			 align-items: stretch;
+			 white-space: nowrap;
+			 position: relative;
+			 font-size: 35px;
+			 transition: background-color .25s cubic-bezier(0.39, 0.575, 0.565, 1);
+         }
+         .slds-align_absolute-center {
+			 display: flex;
+			 justify-content: center;
+			 align-content: center;
+			 align-items: center;
+			 margin: auto;
+         }
+         .slds-button{
+			 padding: 1rem;
+			 font-family: 'Salesforce Sans',Arial,sans-serif;
+			 font-size: 30px;
+			 text-align: center;
+			 vertical-align: middle;
+			 border: 1px solid #dddbda;
+			 transition: border .15s linear;
+			 background-color: #0070d2;
+			 border-color: #0070d2;
+			 color: #fff;
+			 position: relative;
+			 display: inline-block;
+			 background-clip: border-box;
+			 border-radius: .25rem;
+         }
+      </style>
+	  
+      <script src="https://covid360india--dev1.lightning.force.com/lightning/lightning.out.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script>
+         var token;
+		 var clientID='3MVG9pcaEGrGRoTLxT_2YHq3bkWV5kJw9IR5nZZkQrFkGbs3AvgHs_6W5Grvcfc1cc_Y4KLPh.w.ILqjFccCn';
+		 var clientSecret = 'CAF6E6798C698E2E7F7B69896821F0118EB2B05054E9474538F4BD4062FA05A9';
+         
+         var OAuthURL='https://login.salesforce.com/services/oauth2/authorize?client_id='+clientID+'&client_secret='+clientSecret+'&response_type=token&redirect_uri=http://localhost:8000'
+         				  
+         $(document).ready(function(){
+         
+			 var decodedUrl= decodeURIComponent(window.location.href);
+			 var tokenLiteral='access_token=';
+			 
+			 if(decodedUrl.includes(tokenLiteral)){
+				var start = decodedUrl.indexOf(tokenLiteral) + tokenLiteral.length;
+				var stringEnd = decodedUrl.indexOf('&');
+				token = decodedUrl.substring(start,stringEnd);
+				console.log(token);
+			 }
+			 else
+				alert('Starting Authentication');
+			 
+			 if(token)
+				alert('Authentication Complete! :)');//('We got the token! :D *hopefully the right one!*');
+			 else
+				window.location = OAuthURL;
+         	
+         });
+         
+         function initializeApp(){
+			document.getElementById("spinner").style.display = "block";
+         
+			 var url='https://covid360india--dev1.my.salesforce.com';
+			 var appName='c:DemoDashapp';
+			 $Lightning.use(appName, 
+						function() {
+							document.getElementById("spinner").style.display = "none";
+							createComponent();
+						}, url, token);
+         
+         }
+         
+         function createComponent(){
+         	$Lightning.createComponent(
+         		"c:Demo", 
+         		{
+         			accessToken: token
+         		}, 
+         		"dashboard"
+         	); 
+         }
+      </script>
+   </head>
 </html>
